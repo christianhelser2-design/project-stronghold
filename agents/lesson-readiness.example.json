@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "id": "lesson-readiness",
+  "enabled": false,
+  "invocation": "manual",
+  "mode": "draft-only",
+  "prompt": "prompts/lesson-readiness.md",
+  "example_input": "examples/lesson.synthetic.json",
+  "tools": [],
+  "owner_role": "Teaching Preparation",
+  "review": "Teacher checks current pacing, materials, timing, visuals and uncertainty before use."
+}

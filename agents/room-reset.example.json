@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "id": "room-reset",
+  "enabled": false,
+  "invocation": "manual",
+  "mode": "draft-only",
+  "prompt": "prompts/room-reset.md",
+  "example_input": "examples/room-reset.synthetic.json",
+  "tools": [],
+  "owner_role": "Classroom Operations",
+  "review": "Teacher checks physical fit, prep time and the return routine before trying the change."
+}

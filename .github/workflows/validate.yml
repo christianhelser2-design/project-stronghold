@@ -1,0 +1,25 @@
+name: Validate starter
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out public source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, verified 2026-10-18
+        with:
+          persist-credentials: false
+      - name: Check Python version
+        run: python3 -c 'import sys; assert sys.version_info >= (3, 11); print(sys.version)'
+      - name: Validate public starter
+        run: python3 scripts/validate.py
+      - name: Test validation behavior
+        run: python3 -m unittest discover -s tests -v

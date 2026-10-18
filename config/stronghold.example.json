@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "timezone": "America/Detroit",
+  "data_policy": "synthetic-only",
+  "integrations_enabled": false,
+  "agents": [
+    "agents/lesson-readiness.example.json",
+    "agents/room-reset.example.json"
+  ]
+}

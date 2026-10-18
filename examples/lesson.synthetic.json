@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "scenario": "Invented upper-elementary shape creature; not a real class or pacing record.",
+  "source": "Fictional demonstration revision 1; no current classroom source supplied.",
+  "duration_minutes": 40,
+  "target": "Combine geometric shapes and varied lines to invent an original creature.",
+  "standard": null,
+  "starting_point": "In this invented scenario, shape sketches exist but no final composition is chosen.",
+  "materials": ["Scrap drawing paper", "Pencils", "Existing crayons"],
+  "choice": "Each maker chooses their creature, pose and arrangement; do not copy the demonstration.",
+  "steps": [
+    {"do": "Try two arrangements of three shapes.", "look": "Teacher sketches two different arrangements.", "check": "The arrangements look different."},
+    {"do": "Choose one and add varied lines.", "look": "Teacher shows straight, curved and zigzag lines.", "check": "Point to two different line types."}
+  ],
+  "access_support": "Say and demonstrate one step at a time; offer larger paper and a drawn step card.",
+  "cleanup": "Return crayons by container, save work in the assigned private classroom storage, clear scraps.",
+  "reentry": "Teacher records the actual class stopping point privately after the trial.",
+  "unknowns": ["Actual class size and stock", "Verified standard", "Current section progress", "Existing slides or printouts"]
+}

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "scenario": "Invented room reset example; not an inventory or observation from a real classroom.",
+  "observation": "In this fictional scenario, mixed pencils and erasers slow the return routine.",
+  "prep_minutes": 10,
+  "materials": ["One existing shallow tray", "Two existing cups", "Scrap label paper"],
+  "goal": "Make one table's retrieve-and-return routine easy to demonstrate.",
+  "unknowns": ["Actual tray fit", "Student reach and route clearance", "Observed reset time"]
+}

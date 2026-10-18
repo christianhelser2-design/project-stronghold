@@ -1,0 +1,21 @@
+# These reduce accidental staging; they are not an access-control boundary.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*credentials*
+*secrets*
+private/
+data/
+exports/
+uploads/
+local/
+config/*.local.json
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+dist/
+.DS_Store

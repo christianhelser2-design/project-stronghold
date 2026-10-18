@@ -33,7 +33,7 @@ not claims that staff or background agents are running.
 | Scope and privacy boundary | Maintainer | Repository access | Public/private split documented | Defined |
 | Prompts, profiles, examples | Implementer | Scope | Two complete manual-use paths | Implemented |
 | Validation and regression tests | Implementer | Examples | Good input passes; unsafe/broken fixtures fail | Locally verified |
-| Repository publication | Maintainer | Local review and passing tests | Exact published files verified | Pending |
+| Repository publication | Maintainer | Local review and passing tests | Exact published files verified | Published in PR #1; hosted checks passed |
 
 Target: this starter task. No classroom date or ongoing maintenance commitment is
 assigned. Work order: finish one milestone, verify it, then continue.
@@ -73,6 +73,22 @@ runtime choices are unresolved; this starter does not settle them.
   checked whitespace with `git diff --cached --check`. No private workbook was imported.
 - This is author review and local execution, not an independent security audit,
   an AI output evaluation, a classroom trial or hosted CI evidence.
-- Hosted publication and validation: pending; record verified results after upload.
+- Hosted publication and validation are recorded below.
 - Repository rulesets were empty when inspected. Required-check enforcement and
   branch protection are not configured by this starter.
+
+## Publication receipt — 2026-10-18
+
+- Candidate commit: `d396aeae319c314647d9fc8b3192b5cfd128aeab`.
+- All 17 remote file paths, modes and Git blob hashes matched the tested local files.
+- Both push and pull-request workflows completed successfully. The hosted job
+  passed Python-version verification, starter validation and the behavior tests.
+- [Verified pull-request run](https://github.com/christianhelser2-design/project-stronghold/actions/runs/39157489262).
+- This receipt is a documentation-only follow-up to that tested candidate.
+  [Pull request #1](https://github.com/christianhelser2-design/project-stronghold/pull/1)
+  holds the final merge state; [Actions](https://github.com/christianhelser2-design/project-stronghold/actions)
+  holds subsequent checks. Do not treat the earlier run as a test of later edits.
+
+The remaining configuration is agent/runtime selection and enforcement, approved
+private-source access, any intentionally scheduled work, and mandatory branch checks.
+No schedule, integration, classroom application or live agent was created.

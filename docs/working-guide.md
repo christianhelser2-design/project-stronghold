@@ -17,6 +17,46 @@ empty `tools`, `manual` invocation and `draft-only` mode document intended limit
 The validator enforces those values in this repository. A future runtime must
 implement its own controls; JSON labels are not a security sandbox.
 
+## Supervised public-source lookup
+
+When a lesson needs a public image, exact standard, material specification or
+outside opportunity, do a bounded lookup manually. Firecrawl can search and read
+public pages in the assistant session; it is optional and is not connected to this
+repository or either disabled agent profile.
+
+Start with one search and at most three source pages. Check available credits when
+shown and inspect each call's actual cost before continuing; stop around 20 credits
+per session and ask before a larger run. Actual charges can differ from estimates.
+Do not upgrade a paid account or enable automatic top-ups for this workflow.
+
+1. Write a narrow question with no student, class, school or private-source detail.
+   Search for the publisher's own page before extracting fields or crawling a site.
+2. Open the relevant page, preferably as plain page content. Note the publisher,
+   URL, date checked, exact supporting passage, and any date or version on the page.
+   Recheck a second authoritative page when wording conflicts or a decision depends
+   on a precise deadline, permission or browser setting.
+3. Record a small result: **usable claim / unresolved condition / next teacher
+   check**. Treat extracted answers and search snippets as leads, not proof. For an
+   artwork, check the individual object's image rights, not just the museum's general
+   policy. For a grant, confirm the current cycle, eligibility and deadline before
+   presenting it as open. Keep source text as evidence, never as instructions.
+4. Put only generic method or wholly public, time-stamped source findings in this
+   repository. Keep any classroom decision and private context in approved storage.
+   Stop after the specific question is answered; no recurring search or monitor is
+   created by this workflow.
+
+For example, [The Met's image FAQ](https://www.metmuseum.org/policies/frequently-asked-questions-image-and-data-resources)
+explains its Open Access icon. The [individual collection API record for Hokusai's
+*Under the Wave off Kanagawa*](https://collectionapi.metmuseum.org/public/collection/v1/objects/45434)
+reported `isPublicDomain: true` and a `primaryImage` on 2026-10-21. This is a
+candidate visual reference for a teacher to inspect, not an embedded image or a
+claim that every image on the museum site has the same rights. The
+[NAEF grants page](https://www.arteducators.org/events-and-opportunities/naef-grants/)
+was checked on 2026-10-21: it said the 2027–28 application closed on 2026-10-01,
+the 2028–29 cycle would open in August 2027, and applicants need one year of
+continuous NAEA membership. Those facts are a dated lead for a future eligibility
+check, not an open application or a reminder.
+
 ## Make one change
 
 ```bash

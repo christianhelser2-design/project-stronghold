@@ -92,3 +92,40 @@ runtime choices are unresolved; this starter does not settle them.
 The remaining configuration is agent/runtime selection and enforcement, approved
 private-source access, any intentionally scheduled work, and mandatory branch checks.
 No schedule, integration, classroom application or live agent was created.
+
+## Supervised public research trial — 2026-10-21
+
+The existing lesson-readiness prompt now has an optional, one-question public
+source check for visual references, standards and material facts. The working guide
+specifies a manual Firecrawl-assisted path: publisher search, direct page check,
+dated claim, unresolved condition and teacher decision. No API key, runtime, agent
+tool permission, account integration or recurring monitor was added.
+
+One-time live checks of [The Met's image FAQ](https://www.metmuseum.org/policies/frequently-asked-questions-image-and-data-resources),
+its [individual Hokusai object record](https://collectionapi.metmuseum.org/public/collection/v1/objects/45434),
+and [NAEF's grant page](https://www.arteducators.org/events-and-opportunities/naef-grants/)
+showed why broad search snippets need object-level rights and current-cycle checks.
+The object record explicitly reported `isPublicDomain: true` and a `primaryImage`;
+the public collection page's extracted text alone did not expose that specific flag.
+A separate [fullscreen API page](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen)
+surfaced transient user activation, iframe permission and rejected promises as
+debugging leads; the [dedicated policy page](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/fullscreen)
+clarified that `fullscreen` has a default `self` allowlist. There is no camera app
+in this repository, so these are research leads, not a tested repair.
+
+Manual synthetic trial: using `examples/lesson.synthetic.json`, a draft labeled
+readiness **needs preparation** because stock, class size and current pacing are
+unknown. It proposed a 40-minute flow (entry 4, demonstration 5, making 21,
+checkpoint 4, cleanup 6), left the standard unverified, and named a teacher-drawn
+curved-line example as a fallback. The candidate Hokusai reference was tied to
+the dated individual object record's `isPublicDomain` flag; no image was copied
+into the repository. This checks the prompt's source handling, not classroom use.
+
+Next: have the teacher review a real candidate visual and actual section readiness
+in approved private storage before using either in class. A teacher must verify
+classroom readiness and any use of the image separately.
+
+Local verification: `python3 scripts/validate.py` passed; all 20 unit tests
+passed; `git diff --cached --check` passed and the full staged diff was reviewed.
+These checks do not evaluate the quality of an AI lesson draft or prove live
+classroom use.

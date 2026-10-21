@@ -129,3 +129,28 @@ Local verification: `python3 scripts/validate.py` passed; all 20 unit tests
 passed; `git diff --cached --check` passed and the full staged diff was reviewed.
 These checks do not evaluate the quality of an AI lesson draft or prove live
 classroom use.
+
+## Validator contract repair — 2026-10-21
+
+A synthetic review found that a profile could point to the other prompt or
+example, or duplicate the other profile's ID, while validation still passed.
+The validator now ties each profile ID to its filename and the two supported
+prompt/example pairs. It also checks private directory and filename patterns
+without case sensitivity, so a capitalized `Private/` or `.ENV` path is flagged.
+
+The same review found that staged content could differ from a safe working-tree
+copy, a staged deletion or empty index could be hidden by untracked copies,
+and a staged link could depend on an untracked target. A second pass now checks
+staged Git blobs, file modes, required paths, contracts and links alongside
+working-tree candidates.
+The simple Markdown link check also handles optional titles.
+
+Local verification: `python3 scripts/validate.py` passed; all 31 unit tests
+passed, including eleven new tests for these cases. The Git regression fixtures use
+only invented files in temporary directories. This is local source validation,
+not a hosted check or privacy certification. The link check does not cover all
+Markdown syntax or verify anchors and remote pages; review staged content and
+publication text before any push.
+
+Next: review the full staged diff, then publish this bounded repair through a
+reviewed pull request and verify the hosted workflow.

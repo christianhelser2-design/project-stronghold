@@ -2,6 +2,7 @@
 import ast
 import json
 from pathlib import Path, PurePosixPath
+import posixpath
 import re
 import subprocess
 import sys
@@ -18,6 +19,10 @@ REQUIRED = {
 }
 PRIVATE_PARTS = {"private", "data", "exports", "uploads", "local", ".venv", "node_modules"}
 ALLOWED_SUFFIXES = {".md", ".json", ".py", ".yml", ".yaml"}
+AGENT_INPUTS = {
+    "lesson-readiness": "examples/lesson.synthetic.json",
+    "room-reset": "examples/room-reset.synthetic.json",
+}
 CREDENTIAL = re.compile(
     r"(?:gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|"
     r"sk-(?:proj-)?[A-Za-z0-9_-]{20,}|AKIA[A-Z0-9]{16}|"
@@ -28,6 +33,7 @@ PRIVATE_LINK = re.compile(
     r"drive\.google\.com/(?:file/d/|drive/folders/)|mail\.google\.com/)", re.I
 )
 EMAIL = re.compile(r"\b[A-Za-z0-9._%+-]+@([A-Za-z0-9.-]+\.[A-Za-z]{2,})\b")
+MARKDOWN_LINK = re.compile(r'''\]\(\s*([^\s)]+)(?:\s+(?:"[^"]*"|'[^']*'|\([^)]*\)))?\s*\)''')
 FIELDS = {
     "config": {"version", "timezone", "data_policy", "integrations_enabled", "agents"},
     "agent": {"version", "id", "enabled", "invocation", "mode", "prompt", "example_input",
@@ -50,6 +56,26 @@ def candidates(root):
         return sorted(set(result.stdout.decode("utf-8").strip("\0").split("\0")) - {""})
     return sorted(p.relative_to(root).as_posix() for p in root.rglob("*")
                   if (p.is_file() or p.is_symlink()) and "__pycache__" not in p.parts)
+
+
+def staged_files(root):
+    """Return path, mode and blob ID from Git's index, without reading the worktree."""
+    if not (root / ".git").exists():
+        return None
+    result = subprocess.run(
+        ["git", "-C", str(root), "ls-files", "--stage", "-z"],
+        check=True, capture_output=True,
+    )
+    files = {}
+    for entry in result.stdout.split(b"\0"):
+        if not entry:
+            continue
+        metadata, raw_name = entry.split(b"\t", 1)
+        mode, object_id, stage = metadata.split(b" ")
+        if stage != b"0":
+            raise ValueError("unmerged index")
+        files[raw_name.decode("utf-8")] = (mode, object_id.decode("ascii"))
+    return files
 
 
 def unique_object(pairs):
@@ -103,6 +129,16 @@ def check_contract(name, data, names):
             errors.append("tools must be empty")
         if not all(nonempty(data[k]) for k in ("id", "owner_role", "review")):
             errors.append("agent description fields must be nonempty text")
+        if not name.endswith(".example.json"):
+            errors.append("agent profile filename must end in .example.json")
+        else:
+            profile_id = PurePosixPath(name).name.removesuffix(".example.json")
+            if data["id"] != profile_id:
+                errors.append("agent id must match profile filename")
+            if data["prompt"] != f"prompts/{profile_id}.md":
+                errors.append("prompt must match agent profile")
+            if data["example_input"] != AGENT_INPUTS.get(profile_id):
+                errors.append("example_input must match agent profile")
         for key, prefix, suffix in (("prompt", "prompts/", ".md"),
                                     ("example_input", "examples/", ".synthetic.json")):
             value = data[key]
@@ -132,6 +168,68 @@ def check_contract(name, data, names):
     return errors
 
 
+def path_problem(name):
+    path = PurePosixPath(name)
+    parts = {part.casefold() for part in path.parts}
+    filename = path.name.casefold()
+    if (PRIVATE_PARTS.intersection(parts) or filename.startswith(".env") or
+            filename.endswith(".local.json") or re.search(r"credentials|secrets", name, re.I)):
+        return "private path must not be published"
+    if path.suffix not in ALLOWED_SUFFIXES and name != ".gitignore":
+        return "unsupported file type"
+    return None
+
+
+def local_link_problem(root, name, target, names):
+    if target.startswith(("https://", "http://", "mailto:", "#")):
+        return None
+    target = target.split("#", 1)[0]
+    if root is None:
+        relative = posixpath.normpath(posixpath.join(posixpath.dirname(name), target))
+        if relative == ".." or relative.startswith(("../", "/")):
+            return "broken or escaping local Markdown link"
+        prefix = "" if relative == "." else relative + "/"
+        if relative not in names and not any(n.startswith(prefix) for n in names):
+            return "local Markdown link targets a file excluded from publication"
+    else:
+        destination = (root / PurePosixPath(name).parent / target).resolve()
+        if not destination.is_relative_to(root) or not destination.exists():
+            return "broken or escaping local Markdown link"
+        relative = destination.relative_to(root).as_posix()
+        prefix = "" if relative == "." else relative + "/"
+        if relative not in names and not (destination.is_dir() and any(n.startswith(prefix) for n in names)):
+            return "local Markdown link targets a file excluded from publication"
+    return None
+
+
+def content_problems(name, content, names, root):
+    problems = []
+    if CREDENTIAL.search(content):
+        problems.append("possible credential; inspect privately")
+    if PRIVATE_LINK.search(content):
+        problems.append("private link must not be published")
+    if any(domain.lower() not in {"example.com", "example.org", "example.net"} for domain in EMAIL.findall(content)):
+        problems.append("contact address outside reserved example domains")
+    suffix = PurePosixPath(name).suffix
+    if suffix == ".json":
+        try:
+            data = json.loads(content, object_pairs_hook=unique_object)
+            problems.extend(check_contract(name, data, names))
+        except ValueError:
+            problems.append("invalid JSON or duplicate keys")
+    if suffix == ".py":
+        try:
+            ast.parse(content)
+        except SyntaxError:
+            problems.append("invalid Python syntax")
+    if suffix == ".md":
+        for target in MARKDOWN_LINK.findall(content):
+            problem = local_link_problem(root, name, target, names)
+            if problem:
+                problems.append(problem)
+    return problems
+
+
 def validate(root):
     root = root.resolve()
     try:
@@ -141,18 +239,13 @@ def validate(root):
     errors = [f"{name}: missing required file" for name in sorted(REQUIRED - names)]
     for name in sorted(names):
         path = root / name
-        parts = PurePosixPath(name).parts
-        problems = []
-        if (PRIVATE_PARTS.intersection(parts) or path.name.startswith(".env") or
-                path.name.endswith(".local.json") or re.search(r"credentials|secrets", name, re.I)):
-            errors.append(f"{name}: private path must not be published")
+        problem = path_problem(name)
+        if problem:
+            errors.append(f"{name}: {problem}")
             continue
         # Check ancestors too: do not follow a directory symlink into private files.
         if any(p.is_symlink() for p in [path, *path.parents] if p != root.parent):
             errors.append(f"{name}: symlink is not allowed")
-            continue
-        if path.suffix not in ALLOWED_SUFFIXES and name != ".gitignore":
-            errors.append(f"{name}: unsupported file type")
             continue
         try:
             if path.stat().st_size > 200_000:
@@ -162,36 +255,39 @@ def validate(root):
         except (OSError, UnicodeError):
             errors.append(f"{name}: missing or unreadable UTF-8 file")
             continue
-        if CREDENTIAL.search(content):
-            problems.append("possible credential; inspect privately")
-        if PRIVATE_LINK.search(content):
-            problems.append("private link must not be published")
-        if any(domain.lower() not in {"example.com", "example.org", "example.net"} for domain in EMAIL.findall(content)):
-            problems.append("contact address outside reserved example domains")
-        if path.suffix == ".json":
+        errors.extend(f"{name}: {problem}" for problem in content_problems(name, content, names, root))
+
+    try:
+        indexed = staged_files(root)
+    except (OSError, subprocess.SubprocessError, UnicodeError, ValueError):
+        return errors + ["repository: cannot inspect staged files"]
+    if indexed is not None:
+        index_names = set(indexed)
+        errors.extend(f"staged {name}: missing required file" for name in sorted(REQUIRED - index_names))
+        for name, (mode, object_id) in sorted(indexed.items()):
+            problem = path_problem(name)
+            if problem:
+                errors.append(f"staged {name}: {problem}")
+                continue
+            if mode == b"120000":
+                errors.append(f"staged {name}: symlink is not allowed")
+                continue
+            if mode not in {b"100644", b"100755"}:
+                errors.append(f"staged {name}: unsupported file type")
+                continue
             try:
-                data = json.loads(content, object_pairs_hook=unique_object)
-                problems.extend(check_contract(name, data, names))
-            except ValueError:
-                problems.append("invalid JSON or duplicate keys")
-        if path.suffix == ".py":
-            try:
-                ast.parse(content)
-            except SyntaxError:
-                problems.append("invalid Python syntax")
-        if path.suffix == ".md":
-            for target in re.findall(r"\]\(([^\s)]+)\)", content):
-                if target.startswith(("https://", "http://", "mailto:", "#")):
+                size = subprocess.run(["git", "-C", str(root), "cat-file", "-s", object_id],
+                                      check=True, capture_output=True).stdout
+                if int(size) > 200_000:
+                    errors.append(f"staged {name}: file exceeds starter size limit")
                     continue
-                destination = (path.parent / target.split("#", 1)[0]).resolve()
-                if not destination.is_relative_to(root) or not destination.exists():
-                    problems.append("broken or escaping local Markdown link")
-                else:
-                    relative = destination.relative_to(root).as_posix()
-                    prefix = "" if relative == "." else relative + "/"
-                    if relative not in names and not (destination.is_dir() and any(n.startswith(prefix) for n in names)):
-                        problems.append("local Markdown link targets a file excluded from publication")
-        errors.extend(f"{name}: {problem}" for problem in problems)
+                content = subprocess.run(["git", "-C", str(root), "cat-file", "blob", object_id],
+                                         check=True, capture_output=True).stdout.decode("utf-8")
+            except (OSError, subprocess.SubprocessError, UnicodeError, ValueError):
+                errors.append(f"staged {name}: missing or unreadable UTF-8 file")
+                continue
+            errors.extend(f"staged {name}: {problem}" for problem in
+                          content_problems(name, content, index_names, None))
     return errors
 
 

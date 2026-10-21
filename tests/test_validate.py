@@ -71,6 +71,18 @@ class ValidationTests(unittest.TestCase):
         self.change_json("agents/lesson-readiness.example.json", "prompt", "../outside.md")
         self.assert_rejected("reference")
 
+    def test_agent_id_must_match_profile_filename(self):
+        self.change_json("agents/room-reset.example.json", "id", "lesson-readiness")
+        self.assert_rejected("id must match profile filename")
+
+    def test_agent_prompt_must_match_its_input(self):
+        self.change_json("agents/room-reset.example.json", "prompt", "prompts/lesson-readiness.md")
+        self.assert_rejected("prompt must match agent profile")
+
+    def test_agent_example_input_must_match_its_prompt(self):
+        self.change_json("agents/room-reset.example.json", "example_input", "examples/lesson.synthetic.json")
+        self.assert_rejected("example_input must match agent profile")
+
     def test_integrations_stay_disabled(self):
         self.change_json("config/stronghold.example.json", "integrations_enabled", True)
         self.assert_rejected("integrations")
@@ -90,9 +102,25 @@ class ValidationTests(unittest.TestCase):
         self.write("docs/accidental.md", "invented" + "@school.invalid")
         self.assert_rejected("contact")
 
+    def test_capitalized_private_directory_fails(self):
+        self.write("docs/Private/fictional.md", "Invented text")
+        self.assert_rejected("private path")
+
+    def test_capitalized_env_filename_fails(self):
+        self.write("docs/.ENV.example.md", "Invented text")
+        self.assert_rejected("private path")
+
     def test_broken_markdown_link_fails(self):
         self.write("docs/accidental.md", "[Guide](missing.md)")
         self.assert_rejected("link")
+
+    def test_broken_markdown_link_with_title_fails(self):
+        self.write("docs/accidental.md", '[Guide](missing.md "Optional title")')
+        self.assert_rejected("link")
+
+    def test_existing_markdown_link_with_title_passes(self):
+        self.write("docs/accidental.md", '[Guide](../README.md "Optional title")')
+        self.assertEqual(validate(self.root), [])
 
     def test_symlink_is_not_followed(self):
         (self.root / "docs/link.md").symlink_to("../README.md")
@@ -122,6 +150,48 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual(validate(self.root), [])
         git("add", "-f", "private/synthetic.txt")
         self.assert_rejected("private path")
+
+    def test_staged_credential_is_checked_after_worktree_replacement(self):
+        def git(*args):
+            subprocess.run(["git", "-C", str(self.root), *args], check=True, capture_output=True)
+        git("init", "-q")
+        git("add", ".")
+        fake = "ghp_" + "A" * 36
+        self.write("docs/accidental.md", fake)
+        git("add", "docs/accidental.md")
+        self.write("docs/accidental.md", "Invented safe text")
+        errors = validate(self.root)
+        self.assertTrue(any("staged docs/accidental.md: possible credential" in e for e in errors), errors)
+        self.assertNotIn(fake, "\n".join(errors))
+
+    def test_staged_required_file_is_checked_when_worktree_copy_remains(self):
+        def git(*args):
+            subprocess.run(["git", "-C", str(self.root), *args], check=True, capture_output=True)
+        git("init", "-q")
+        git("add", ".")
+        git("rm", "--cached", "prompts/room-reset.md")
+        self.assertTrue((self.root / "prompts/room-reset.md").exists())
+        self.assert_rejected("staged prompts/room-reset.md: missing required file")
+
+    def test_empty_staged_tree_does_not_hide_required_worktree_files(self):
+        def git(*args):
+            subprocess.run(["git", "-C", str(self.root), *args], check=True, capture_output=True)
+        git("init", "-q")
+        git("add", ".")
+        git("rm", "--cached", "-r", ".")
+        self.assertTrue((self.root / "README.md").exists())
+        self.assert_rejected("staged README.md: missing required file")
+
+    def test_staged_link_cannot_depend_on_untracked_target(self):
+        def git(*args):
+            subprocess.run(["git", "-C", str(self.root), *args], check=True, capture_output=True)
+        git("init", "-q")
+        git("add", ".")
+        self.write("docs/accidental.md", "[Target](uncommitted.md)")
+        git("add", "docs/accidental.md")
+        self.write("docs/uncommitted.md", "Invented text")
+        errors = validate(self.root)
+        self.assertTrue(any("staged docs/accidental.md: local Markdown link" in e for e in errors), errors)
 
     def test_cli_failure_returns_nonzero(self):
         self.write("examples/lesson.synthetic.json", "null")

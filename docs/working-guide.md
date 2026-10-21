@@ -82,12 +82,14 @@ private-data remediation; see [privacy](privacy.md).
 
 ## Validation and limitations
 
-Inside a Git checkout, validation reads tracked files plus non-ignored untracked
-files, then inspects their current working-tree contents. Stage final edits before
-reviewing the diff; it does not compare staged bytes to working-tree bytes. From an
-extracted download without Git metadata it scans all files except Python caches.
-Python syntax, JSON contracts and simple relative Markdown file links are checked.
-Markdown anchors, remote URL availability, teaching quality and real-world outcomes
+Inside a Git checkout, validation checks both the current contents of tracked and
+non-ignored untracked files and the staged Git index. The index pass reads staged
+blobs, modes and paths directly, including files whose working-tree copy differs
+or remains after an index deletion. Stage final edits before reviewing the diff.
+From an extracted download without Git metadata it scans all files except Python
+caches. Python syntax, JSON contracts and simple relative Markdown file links,
+including links with optional titles, are checked. Markdown anchors, all Markdown
+link syntax, remote URL availability, teaching quality and real-world outcomes
 are not checked. CI uses its clean checkout, so it checks the committed contents.
 
 No install or build step is needed. Git is needed for the Git behavior test.

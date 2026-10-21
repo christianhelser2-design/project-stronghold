@@ -26,8 +26,9 @@ do not copy it here to make development easier.
 
 `.gitignore` reduces accidental staging; it does not protect tracked files,
 history, forced adds, screenshots or comments. The validator checks current Git
-candidates, including forced tracked files. It is a small heuristic, not a full
-secret scanner, identity detector, history audit or legal/compliance certification.
+candidates and staged blobs, including forced tracked files. It is a small
+heuristic, not a full secret scanner, identity detector, history audit or
+legal/compliance certification.
 It cannot detect every token format or identifying fact in prose. Its errors avoid
 printing matched values, but even filenames can disclose information.
 

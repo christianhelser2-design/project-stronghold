@@ -19,3 +19,6 @@ venv/
 node_modules/
 dist/
 .DS_Store
+# Ruflo memory, logs and coordination state stay local.
+.swarm/
+.claude-flow/

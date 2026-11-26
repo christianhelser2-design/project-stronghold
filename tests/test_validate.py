@@ -17,7 +17,8 @@ class ValidationTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name) / "starter"
-        shutil.copytree(SOURCE, self.root, ignore=shutil.ignore_patterns(".git", "__pycache__"))
+        shutil.copytree(SOURCE, self.root, ignore=shutil.ignore_patterns(
+            ".git", "__pycache__", ".swarm", ".claude-flow"))
 
     def write(self, name, value):
         path = self.root / name
@@ -86,6 +87,51 @@ class ValidationTests(unittest.TestCase):
     def test_integrations_stay_disabled(self):
         self.change_json("config/stronghold.example.json", "integrations_enabled", True)
         self.assert_rejected("integrations")
+
+    def test_project_ruflo_config_passes(self):
+        self.write(".codex/config.toml", '''[mcp_servers.ruflo]
+command = "npx"
+args = ["--yes", "ruflo@3.80.8", "mcp", "start", "--transport", "stdio"]
+startup_timeout_sec = 120
+[mcp_servers.ruflo.env]
+ONNXRUNTIME_NODE_INSTALL = "skip"
+npm_config_cache = ".claude-flow/npm-cache"
+''')
+        self.assertEqual(validate(self.root), [])
+
+    def test_malformed_toml_fails(self):
+        self.write(".codex/config.toml", "[mcp_servers")
+        self.assert_rejected("invalid TOML")
+
+    def test_ruflo_cannot_disable_host_sandbox_or_approvals(self):
+        self.write(".codex/config.toml", 'sandbox_mode = "danger-full-access"\n')
+        self.assert_rejected("Ruflo MCP configuration")
+
+    def test_ruflo_requires_pinned_stdio_command(self):
+        for package, transport in (("ruflo@latest", "stdio"), ("ruflo@3.80.8", "http")):
+            with self.subTest(package=package, transport=transport):
+                self.write(".codex/config.toml", f'''[mcp_servers.ruflo]
+command = "npx"
+args = ["--yes", "{package}", "mcp", "start", "--transport", "{transport}"]
+startup_timeout_sec = 120
+[mcp_servers.ruflo.env]
+ONNXRUNTIME_NODE_INSTALL = "skip"
+npm_config_cache = ".claude-flow/npm-cache"
+''')
+                self.assert_rejected("pinned stdio")
+
+    def test_unreviewed_toml_stays_unsupported(self):
+        self.write("config/other.toml", "enabled = true\n")
+        self.assert_rejected("unsupported")
+
+    def test_forced_ruflo_runtime_state_is_rejected(self):
+        def git(*args):
+            subprocess.run(["git", "-C", str(self.root), *args], check=True, capture_output=True)
+        git("init", "-q")
+        git("add", ".")
+        self.write(".swarm/notes.md", "Invented runtime state")
+        git("add", "-f", ".swarm/notes.md")
+        self.assert_rejected("private path")
 
     def test_secret_is_rejected_without_echoing_value(self):
         fake = "ghp_" + "A" * 36

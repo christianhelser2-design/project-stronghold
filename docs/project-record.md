@@ -154,3 +154,44 @@ publication text before any push.
 
 Next: review the full staged diff, then publish this bounded repair through a
 reviewed pull request and verify the hosted workflow.
+
+## Ruflo development connection and public tutorial review — 2026-11-26
+
+Added a project-level Codex MCP connection pinned to `ruflo@3.80.8`, using stdio
+and the existing host approval and sandbox settings. This is optional repository
+development tooling. It does not enable either classroom profile, connect school
+accounts, schedule work or start model workers. The existing prompt paths,
+synthetic examples and classroom configuration were preserved.
+
+The first npm install failed during ONNX Runtime's Linux GPU-library download.
+Inspection of Microsoft's published 1.30.0 installer showed that
+`ONNXRUNTIME_NODE_INSTALL=skip` skips unbundled CUDA/TensorRT binaries while
+retaining bundled CPU files. The retry succeeded. The connection sets that
+option and keeps npm's cache in ignored project runtime storage. GPU and neural
+execution were not tested. See [setup and removal](ruflo.md).
+
+Verification on Linux with Node 24.22.3: the configured command completed MCP
+initialization, discovered 394 tool definitions, and executed `system_info` with
+the expected 3.80.8 version, project working directory, positive process ID and
+supported Node version. Closing stdin stopped the server with exit status zero.
+This proves a local tool call; advertised feature flags do not prove model,
+memory, swarm or classroom execution.
+
+The validator now parses only the reviewed `.codex/config.toml` shape, requires
+a numeric version pin and stdio, and rejects additional host settings. Both
+`.swarm/` and `.claude-flow/` are ignored and rejected if force-added. Six new
+tests cover the accepted config, malformed TOML, host-setting changes, moving
+version/transport changes, unreviewed TOML and forced runtime-state staging.
+All 37 unit tests and the public-file validator passed locally. Review also
+identified and fixed copying local runtime directories into test fixtures.
+
+[Public Instagram findings](instagram-notes.md) link the matching district post,
+a Ruflo overview and a Hallmark audit example. Retrieved captions were compared
+with official documentation; cost savings and rendering prices remain unverified
+promotional claims. Hallmark is a downloaded reference, not installed in this
+starter, and no campus view was built.
+
+Next: review this change through a pull request and check its hosted validation.
+After merging, reopen Codex in the trusted project to load the connection and
+try one synthetic lesson-readiness review. No paid model run or classroom trial
+was performed. Hosted results must be verified separately from this local receipt.

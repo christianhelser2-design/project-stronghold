@@ -17,10 +17,14 @@ REQUIRED = {
     "examples/room-reset.synthetic.json", "scripts/validate.py",
     "tests/test_validate.py", ".github/workflows/validate.yml",
     ".github/pull_request_template.md",
+    "docs/brain-index.md", "docs/toolbox-review.md", "scripts/recall.py", "tests/test_recall.py",
 }
 PRIVATE_PARTS = {"private", "data", "exports", "uploads", "local", ".venv", "node_modules",
                  ".swarm", ".claude-flow"}
 ALLOWED_SUFFIXES = {".md", ".json", ".py", ".yml", ".yaml"}
+RUFLO_TOOLS = {"system_info", "memory_store", "memory_retrieve", "memory_search",
+               "memory_list", "memory_delete", "task_create", "task_list",
+               "task_status", "task_update", "task_complete", "swarm_status"}
 AGENT_INPUTS = {
     "lesson-readiness": "examples/lesson.synthetic.json",
     "room-reset": "examples/room-reset.synthetic.json",
@@ -206,6 +210,8 @@ def local_link_problem(root, name, target, names):
 
 def content_problems(name, content, names, root):
     problems = []
+    if name == "docs/brain-index.md" and len(content) > 2500:
+        problems.append("brain index exceeds 2500-character context budget")
     if CREDENTIAL.search(content):
         problems.append("possible credential; inspect privately")
     if PRIVATE_LINK.search(content):
@@ -222,8 +228,13 @@ def content_problems(name, content, names, root):
         server = servers.get("ruflo", {}) if isinstance(servers, dict) else {}
         if (set(config) != {"mcp_servers"} or not isinstance(servers, dict)
                 or set(servers) != {"ruflo"} or not isinstance(server, dict)
-                or set(server) != {"command", "args", "startup_timeout_sec", "env"}):
+                or set(server) != {"command", "args", "startup_timeout_sec", "env", "enabled_tools"}):
             return problems + ["only the reviewed Ruflo MCP configuration is allowed"]
+        enabled = server["enabled_tools"]
+        if (not isinstance(enabled, list) or not enabled
+                or not all(isinstance(tool, str) for tool in enabled)
+                or len(enabled) != len(set(enabled)) or not set(enabled) <= RUFLO_TOOLS):
+            problems.append("Ruflo requires a nonempty unique list of reviewed tools")
         args = server["args"]
         if (server["command"] != "npx" or not isinstance(args, list) or len(args) != 6
                 or args[0] != "--yes" or not isinstance(args[1], str)

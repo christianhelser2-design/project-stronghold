@@ -195,3 +195,47 @@ Next: review this change through a pull request and check its hosted validation.
 After merging, reopen Codex in the trusted project to load the connection and
 try one synthetic lesson-readiness review. No paid model run or classroom trial
 was performed. Hosted results must be verified separately from this local receipt.
+
+## Selective development recall and toolbox review — 2026-11-26
+
+Added a short current-state index and a dependency-free Python recall command.
+The command reads only 11 named public Markdown sources on each invocation,
+skips file/ancestor symlinks and oversized inputs, and returns up to three
+file/line-cited excerpts within a default 4,000-character ceiling. It does not
+index private workspaces, package caches, transcripts or runtime memory. The
+current index is under 2,500 characters; the validator now enforces that ceiling.
+Session instructions start with the short index and privacy boundary, retrieve
+relevant passages, then update current facts and the existing dated record at
+verified task boundaries. No background capture or new schedule was created.
+
+The [dated toolbox review](toolbox-review.md) compares official repositories,
+current release/maintenance evidence, licenses and operating costs. It identifies
+QMD, MarkItDown and RTK OSS as conditional pilots, and records Ruflo 3.80.9 for
+separate upgrade review. No candidate package was installed or runtime pin
+changed. The existing Ruflo client configuration now selects 12 reviewed
+memory/task/status tools, with regression checks for an empty, duplicate or
+unreviewed tool list. This is client exposure filtering, not a sandbox or proof
+of any particular host's context-token count.
+
+Verification: all 54 Python tests passed, including 15 recall behavior checks.
+The full public validator and staged whitespace check passed before publication.
+The configured Ruflo 3.80.8 server again initialized, advertised 394 definitions,
+contained all 12 selected names, executed `system_info` with expected project
+context and shut down cleanly. No memory write, worker or model request was run.
+
+The first retrieval trial incorrectly ranked fenced CLI examples above evidence;
+regression tests now exclude fenced examples and preserve accurate source lines.
+Specific probes `Ruflo installation`, `private records` and `QMD retrieval`
+returned their expected source among the first three excerpts, using 1,043,
+961 and 1,821 characters respectively with a 2,000-character limit. These are
+character counts, not measured model-token or billing savings.
+Broad `next useful tool` still retrieved generic/self-referential passages, and
+`public private boundaries` ranked the privacy source third. This lexical system
+needs concrete source terms; it is not semantic question answering. Revisit QMD
+only if such misses justify model downloads and a maintained index.
+
+An independent implementation review found no blocking correctness/privacy issue
+and identified the broad-query limitation above. No private source link or
+operational record was added to this public change. The current development
+branch is based on open PR 4. Next: review the dependent pull request and its
+hosted checks, then evaluate recall on the next actual development question.

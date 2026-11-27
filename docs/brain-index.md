@@ -15,8 +15,8 @@ Check the actual branch and live pull-request state before acting on a snapshot.
   skill. The local toolbox has 14 registered entries, including Hermes v0.23.4
   with a restricted inspection launcher. Hermes model inference is unconfigured;
   package presence is separate from tested capabilities.
-- [Adoption evidence](adoption.md) records tested capabilities. Memory engines
-  use separate public-test stores; private operations stay outside these caches.
+- [Adoption](adoption.md) records tested tools and five adopted reference sources.
+  Memory stores stay separate; private operations remain outside these caches.
 - The first real source workflow is complete: official NGA Monet PDF preserved,
   converted, retrieved and used for an independently reviewed looking draft.
   Use the default source workflow in the working guide for the next relevant task.

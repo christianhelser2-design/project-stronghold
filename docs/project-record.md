@@ -399,3 +399,22 @@ No tests were added, and no external claim or implementation outcome is asserted
 Next: review this documentation draft, then use the checklist for the next
 explicitly requested review. Refresh any optional semantic snapshot before reuse.
 Actual access, usefulness and classroom outcomes still require task evidence.
+
+## Five research/reference sources adopted — 2026-11-27 UTC
+
+Adopted Promptfoo, Hugging Face, n8n templates, Codeberg and GitLab Education as
+research/reference sources in the existing adoption record. Each has official
+links, a concrete source-use recipe and applicable limits. The installed-tool
+inventory is unchanged; no account, runtime, workflow or repository was migrated.
+GitLab Education remains conditional on current institution, age and use rules,
+including the exclusion of institutional administration and SaaS eligibility for
+institutions enrolling students under 13.
+
+Source baseline: `9f234db7ef194e3f39c4efce8887f3a7d4432024`.
+`python3 scripts/validate.py` passed, and
+`python3 -m unittest discover -s tests -v` passed all 102 existing tests.
+No new tests were added; no new tool or classroom outcome is claimed. Next:
+review the bounded documentation change, then consult the relevant source for
+an authorized task through the existing source/review workflow.
+Refresh any optional semantic snapshot before reuse; individual resources,
+licenses, plans and suitability must be checked at the point of use.

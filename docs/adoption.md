@@ -65,6 +65,57 @@ receipt records exact installation and recovery evidence; a model-backed task
 requires a separately configured provider and verification before any broader
 assistant workflow is described as working.
 
+## Approved research and reference sources — 2026-11-27
+
+All five sources below are adopted for the named research roles. They are
+reference sources, separate from the installed-tool inventory above. Consult the
+relevant source for a concrete task, then use the [research checklist](instagram-notes.md)
+and [existing source workflow](working-guide.md#default-source-workflow).
+
+1. **Promptfoo — prompt evaluation methods.** Start with its
+   [introduction](https://www.promptfoo.dev/docs/intro/) and
+   [assertions guide](https://www.promptfoo.dev/docs/configuration/expected-outputs/).
+   For a proposed prompt revision, choose an existing synthetic input, write
+   expected checks for citations, preserved unknowns and usable next actions,
+   compare old/new outputs, and record failures plus independent review. The
+   method can be used manually; this adoption does not install its evaluator.
+2. **Hugging Face — model and demonstration discovery.** Use
+   [model cards](https://huggingface.co/docs/hub/model-cards) to inspect a candidate's
+   revision, license, intended uses, limitations, evaluation evidence and resource
+   needs before a model trial. Inspect a [Space](https://huggingface.co/docs/hub/spaces-overview)
+   and its source as a discovery lead; verify its publisher, hosting requirements,
+   current plan terms and data handling before any synthetic demonstration.
+   Listing on the Hub does not establish school suitability or permission to reuse.
+3. **n8n templates — workflow design references.** Find a relevant example in the
+   [template library](https://n8n.io/workflows), trace its trigger, nodes, credentials,
+   data destinations and failure path, then write the manual equivalent for one
+   bounded task. Check required nodes and dependencies against the current
+   [Community Edition features](https://docs.n8n.io/deploy/host-n8n/community-edition-features/).
+   Review the workflow definition before any import; a template is not a running,
+   tested or approved school integration.
+4. **Codeberg — free-software source discovery.** Use its
+   [purpose and scope](https://docs.codeberg.org/getting-started/what-is-codeberg/)
+   and [FAQ](https://docs.codeberg.org/getting-started/faq/) to find suitable public
+   software references. For one candidate, inspect its license, maintained revision,
+   dependencies and issue/release history; compare the demonstrated gap with the
+   existing toolbox before proposing reuse. Adoption is a research route and does
+   not move or mirror the working repository.
+5. **GitLab Education — instructional resources and conditional program research.**
+   Read the [official program requirements](https://about.gitlab.com/solutions/education/join/)
+   when evaluating a teaching or noncommercial-research use. Document institution,
+   age and intended-use eligibility before an application; the education license
+   excludes running or administering the institution. Current SaaS requirements
+   exclude institutions enrolling students under 13. Reference adoption does not
+   establish eligibility, obtain a license or authorize administrative use.
+
+Capture the chosen source URL, revision/version, date checked and decisive passage
+in the existing task receipt; recheck changeable plan and eligibility conditions
+when used. Public demonstrations use public or wholly fictional inputs;
+authorized private tests remain in approved private stores. Implementations need
+a concrete task scope, current access and data requirements, and verified results.
+Apply existing authorization and approval rules; reference adoption alone is not
+execution.
+
 ## Useful paths forward
 
 1. **Convert once, retrieve selectively.** For an approved public guide, preserve

@@ -23,3 +23,30 @@ linting at multiple widths. This starter has no user interface to audit. Hallmar
 remains a downloaded reference outside this repository; no interface redesign was
 performed. The district post's rendering prices are promotional estimates, not
 verified market rates. No additional GitHub tool was installed from a post alone.
+
+## Checklist for the next requested review
+
+Reuse the [default source workflow](working-guide.md#default-source-workflow),
+[adoption inventory](adoption.md) and [briefing contract](briefing.md).
+
+1. **Bound the review.** State the question, date window and sources actually
+   inspected. Record access limits; do not infer a trend from one post.
+   A one-time review does not start recurring monitoring.
+2. **Capture the lead.** Keep the permalink, creator, visible post date and exact
+   claim. Mark missing dates unknown. Separate publication, release and effective
+   dates from the date checked; reopening a source does not make its news recent.
+3. **Verify the claim.** Open official documentation or release notes for the
+   named feature/version, availability, price and limitations. Distinguish creator
+   claim, official documentation, local test and classroom trial; each requires
+   its own evidence. Promotion and engagement counts do not prove usefulness.
+4. **Check the gap.** Compare with the adopted tools before recommending another.
+   Identify the task improved, total cost, setup effort, compatibility, rights
+   and relevant student-data requirements. Preserve unresolved conditions.
+5. **Choose a next action.** Rank as pilot, investigate, watch or skip with one
+   reason. For a pilot, name an owner, bounded steps, success measure and stop or
+   continue decision; a recommendation is not an implemented result.
+6. **Hand off once.** Use the existing briefing statuses and keep source revisions
+   and effective dates in its assembly receipt. Keep signed-in observations,
+   operational decisions and their links in approved private storage. Only the
+   generic method and public-source findings belong here; apply the existing
+   authorization boundary before account changes or external actions.

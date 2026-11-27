@@ -1,6 +1,7 @@
 # Stronghold development memory
 
-Verified 2026-11-26. This is the short public entry point, not school records.
+Updated 2026-11-27; verification dates remain in source records.
+This is the short public entry point, not school records.
 Check the actual branch and live pull-request state before acting on a snapshot.
 
 ## Current facts
@@ -36,6 +37,7 @@ does not read private workspaces, transcripts, runtime memory or cached packages
 | What works, failed or was verified? | [Dated project record](project-record.md) |
 | How do we resume and maintain memory? | [Working guide](working-guide.md) |
 | Which tools should we add? | [Toolbox review](toolbox-review.md) |
+| How do we review new leads? | [Research checklist](instagram-notes.md) |
 | What is installed and how do agents use it? | [Adoption](adoption.md), [agent workflow](agent-workflow.md) |
 | How is Ruflo configured or removed? | [Ruflo setup](ruflo.md) |
 

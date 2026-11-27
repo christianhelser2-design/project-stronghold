@@ -297,3 +297,42 @@ the existing knowledge record. Compare memory engines on the same synthetic
 questions before choosing a primary derived store; do not synchronize competing
 copies automatically. Hosted publication evidence is separate from these local
 checks. No production token or billing reduction is claimed.
+
+## First real source workflow — 2026-11-26 America/Detroit
+
+Applied the adopted tools to the official National Gallery of Art
+[Claude Monet chapter](https://www.nga.gov/sites/default/files/migrate_images/content/dam/ngaweb/education/learning-resources/an-eye-for-art/aneyeforart-claudemonet.pdf)
+from *An Eye for Art*. The unchanged source is 14,906,321 bytes, SHA-256
+`dc16ae826402c1a7d7328a27a541f736f0f6194e1f49a93f981955d658134ecc`.
+The original landing page's older size label was not used as file evidence.
+Four physical pages map to an unnumbered cover and printed pages 12, 13 and 14.
+
+MarkItDown 0.1.9 produced a retained conversion. Whole-page extraction mixed
+columns, so a separate region companion was checked against all four rendered
+original pages. Physical page 3 / printed 13 supports the water/bridge reflection
+claims; physical page 4 / printed 14 supports the comparison and repeated-scene
+activity. The source, full conversion and artwork remain outside this public
+repository; source access was not treated as a whole-PDF CC0 license.
+
+A separate local QMD index contains only that verified source companion, excluding
+the draft, private workspace and default public-project corpus. Local source
+queries located the checked passages; bounded original-section opening supplied
+the exact activity when a semantic match instead returned background text.
+This distinction preserves source evidence rather than treating retrieval scores
+as answers. The existing public-project index was not changed by this source run.
+
+An original five-minute looking routine and two-minute alternative were drafted.
+An independent assistant opened the original PDF/renders and passed the factual
+claims, physical/printed citations, timing sums and stated scope. The reviewed
+draft hash is `29a990537a641f477895e0bf1c1633f7111715196176f95ad69b58e09eba04cb`.
+Actual classroom fit, progress, display readability, standards and use remain
+unverified. Resource links and operational handoff are saved in the existing
+private case; no private case identifiers or classroom records are copied here.
+
+The source protocol is now explicit in AGENTS and the working guide. For the
+next source task, reuse current verified evidence; preserve/convert/retrieve only
+what is needed, obtain a separate review, then update memory once. This change
+adds no package, background schedule, source republication or school-record write.
+Existing validation and tests were run before publication; there is no new code
+behavior requiring an additional test suite. No production token-saving figure
+or classroom outcome is claimed.

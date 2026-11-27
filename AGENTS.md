@@ -20,6 +20,9 @@
 - Use `docs/agent-workflow.md` to select only the roles needed for a task.
   Use `python3 scripts/toolbox.py status` for local tool presence; installed
   packages and role files are not proof a runtime or classroom workflow works.
+- For a task that adds sourced knowledge, follow the source workflow in
+  `docs/working-guide.md`: preserve, convert, retrieve, draft, independently
+  review, then update memory once. Reuse verified current sources and receipts.
 - Before publishing, run `python3 scripts/validate.py` and
   `python3 -m unittest discover -s tests -v`, then inspect the complete staged diff.
 - Never echo suspected secrets in errors. Do not remove checks to make a failure

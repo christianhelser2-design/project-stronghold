@@ -24,6 +24,20 @@ project level with a pinned version. It supports repository development; the
 classroom profiles above remain disabled. [Instagram research notes](docs/instagram-notes.md)
 separate useful public tutorials from unverified promotional claims.
 
+## Resume with less context
+
+Start with the [development memory index](docs/brain-index.md), then retrieve only
+the relevant public passages:
+
+```bash
+python3 scripts/recall.py "Ruflo installation" --max-chars 2000
+```
+
+The command returns bounded excerpts with file/line citations using Python only.
+It reads current approved Markdown files each time; no embedding service or model
+call is required. See the [toolbox review](docs/toolbox-review.md) for candidates
+worth evaluating when a specific gap appears.
+
 ## Run the checks
 
 Requires Git and Python 3.11 or newer. No third-party Python packages are needed.

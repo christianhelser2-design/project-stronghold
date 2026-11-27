@@ -1,5 +1,6 @@
 """Behavior checks using disposable synthetic files; no real private records."""
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -93,6 +94,7 @@ class ValidationTests(unittest.TestCase):
 command = "npx"
 args = ["--yes", "ruflo@3.80.8", "mcp", "start", "--transport", "stdio"]
 startup_timeout_sec = 120
+enabled_tools = ["system_info", "memory_search"]
 [mcp_servers.ruflo.env]
 ONNXRUNTIME_NODE_INSTALL = "skip"
 npm_config_cache = ".claude-flow/npm-cache"
@@ -114,6 +116,7 @@ npm_config_cache = ".claude-flow/npm-cache"
 command = "npx"
 args = ["--yes", "{package}", "mcp", "start", "--transport", "{transport}"]
 startup_timeout_sec = 120
+enabled_tools = ["system_info", "memory_search"]
 [mcp_servers.ruflo.env]
 ONNXRUNTIME_NODE_INSTALL = "skip"
 npm_config_cache = ".claude-flow/npm-cache"
@@ -123,6 +126,18 @@ npm_config_cache = ".claude-flow/npm-cache"
     def test_unreviewed_toml_stays_unsupported(self):
         self.write("config/other.toml", "enabled = true\n")
         self.assert_rejected("unsupported")
+
+    def test_brain_index_cannot_grow_into_full_history(self):
+        self.write("docs/brain-index.md", "Invented development note. " * 120)
+        self.assert_rejected("brain index exceeds")
+
+    def test_ruflo_rejects_unreviewed_or_duplicate_tools(self):
+        config = (SOURCE / ".codex/config.toml").read_text()
+        for tools in ('["shell_execute"]', '["system_info", "system_info"]', '[]'):
+            with self.subTest(tools=tools):
+                candidate = re.sub(r"enabled_tools = \[[\s\S]*?\]", "enabled_tools = " + tools, config)
+                self.write(".codex/config.toml", candidate)
+                self.assert_rejected("reviewed tool")
 
     def test_forced_ruflo_runtime_state_is_rejected(self):
         def git(*args):

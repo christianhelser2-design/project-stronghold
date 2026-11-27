@@ -1,6 +1,8 @@
 # Working in Project Stronghold
 
-- Read `README.md`, `docs/privacy.md` and `docs/project-record.md` first.
+- Start with `docs/brain-index.md` and `docs/privacy.md`; read `README.md` for setup.
+  Use `python3 scripts/recall.py "task terms" --max-chars 2000` to find relevant
+  records, then read the cited source. Do not load the whole history by default.
 - Keep the starter small. Reuse the two existing prompt/profile paths before
   adding roles, services, dependencies or separate trackers.
 - Public files contain wholly fictional examples only. Never import private
@@ -13,6 +15,8 @@
   grade changes, purchases and private integrations need specific authorization.
 - Make one bounded change. Update the existing project record with actual tests,
   remaining blockers and the next action; keep private details outside this repo.
+  At a verified task boundary, refresh the compact brain index with current facts,
+  sources and the next action; replace stale summaries rather than copying chats.
 - Before publishing, run `python3 scripts/validate.py` and
   `python3 -m unittest discover -s tests -v`, then inspect the complete staged diff.
 - Never echo suspected secrets in errors. Do not remove checks to make a failure

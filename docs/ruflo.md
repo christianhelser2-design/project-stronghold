@@ -5,6 +5,12 @@ The project-level Codex MCP configuration in `.codex/config.toml` runs
 or initializing Ruflo's larger scaffold. The existing lesson-readiness and
 room-reset profiles remain disabled, manual and draft-only.
 
+Codex's `enabled_tools` allowlist selects 12 development memory/task/status tools
+instead of exposing the entire server catalog to the client. The validator permits
+only a nonempty, duplicate-free subset of these reviewed names. This is a client
+filter, not a server security boundary; the original 394 advertised definitions
+do not establish the number of schemas any particular host loads into context.
+
 ## Use it
 
 Requires Node.js 20 or later, npm and a Codex client with project configuration
@@ -16,7 +22,7 @@ From the repository root, download the pinned CLI into npm's cache first:
 ONNXRUNTIME_NODE_INSTALL=skip npm_config_cache=.claude-flow/npm-cache npx --yes ruflo@3.80.8 --version
 ```
 
-The first download can take several minutes and includes native dependencies.
+Ruflo installation can take several minutes and includes native dependencies.
 The configuration passes ONNX's documented `ONNXRUNTIME_NODE_INSTALL=skip` option
 to retain bundled CPU support and skip extra CUDA/TensorRT binary downloads.
 This fixed the Linux install failure observed during setup; GPU execution was

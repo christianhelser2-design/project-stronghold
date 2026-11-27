@@ -47,12 +47,29 @@ python3 scripts/toolbox.py run qmd query "vec: Which add-on helps when keyword r
 ```
 
 These paths use the default sibling toolbox; use its relocated path if configured.
-The strict source allowlist now has 13 named public Markdown files. Do not replace
+The strict source allowlist now has 14 named public Markdown files. Do not replace
 it with a repository/workspace glob. The source-hash check does not itself prove
 embedding freshness; inspect QMD status for pending embeddings. Model download,
 indexing and query latency are additional local costs. Vector retrieval is a
 useful default semantic path here; full query expansion was too slow in the pilot.
 Open the cited original passage before relying on a retrieved claim.
+
+## On-demand briefing
+
+Follow the [briefing contract](briefing.md) when asked for a short status view.
+Open only the relevant approved source records, check their current state, and
+separate observations, proposed actions and unverified conditions. Assemble a
+small explicit snapshot with source links and checked dates outside this public
+checkout, then run the formatter with a 2,000-character budget. Its output is
+Now / Next / Blocked / Sources. If the complete snapshot exceeds the budget,
+narrow it deliberately or select a larger budget; do not silently drop a blocker.
+
+The command reads only the named input and writes only stdout. It does not query
+email/calendar, interpret source instructions, schedule a check-in or update the
+source records. Source gathering and independent comparison remain assistant
+work. After verification, save the result in the existing approved private case
+and update its next action once. Existing role selection and privacy boundaries
+continue to apply.
 
 ## Default source workflow
 

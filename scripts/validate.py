@@ -8,6 +8,11 @@ import subprocess
 import sys
 import tomllib
 
+if __package__:
+    from .briefing import validate_snapshot
+else:
+    from briefing import validate_snapshot
+
 REQUIRED = {
     "README.md", "AGENTS.md", ".gitignore", "docs/privacy.md",
     "docs/working-guide.md", "docs/project-record.md",
@@ -20,6 +25,8 @@ REQUIRED = {
     "docs/brain-index.md", "docs/toolbox-review.md", "scripts/recall.py", "tests/test_recall.py",
     "docs/adoption.md", "docs/agent-workflow.md", "scripts/toolbox.py", "tests/test_toolbox.py",
     "examples/lesson-readiness.draft.md",
+    "scripts/briefing.py", "tests/test_briefing.py", "docs/briefing.md",
+    "examples/briefing.synthetic.json",
 }
 PRIVATE_PARTS = {"private", "data", "exports", "uploads", "local", ".venv", "node_modules",
                  ".swarm", ".claude-flow"}
@@ -110,6 +117,14 @@ def safe_reference(value, names):
 
 
 def check_contract(name, data, names):
+    if name == "examples/briefing.synthetic.json":
+        try:
+            validate_snapshot(data)
+        except ValueError:
+            return ["invalid briefing snapshot contract"]
+        if data["synthetic"] is not True:
+            return ["briefing example must remain synthetic"]
+        return []
     errors = []
     kind = ("config" if name == "config/stronghold.example.json" else
             "agent" if name.startswith("agents/") else

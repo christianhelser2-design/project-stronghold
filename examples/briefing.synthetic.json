@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "checked_at": "2026-11-26T18:00:00-05:00",
+  "sources": [
+    {
+      "id": "lesson",
+      "title": "Wholly invented lesson input",
+      "location": "examples/lesson.synthetic.json",
+      "checked_at": "2026-11-26T17:45:00-05:00"
+    }
+  ],
+  "now": [
+    {
+      "text": "The invented scenario has shape sketches but no chosen composition.",
+      "status": "observed",
+      "sources": ["lesson"]
+    }
+  ],
+  "next": [
+    {
+      "text": "Confirm actual class size and usable paper before planning quantities.",
+      "status": "proposed",
+      "sources": ["lesson"]
+    }
+  ],
+  "blocked": [
+    {
+      "text": "Current section progress and a verified standard are not supplied.",
+      "status": "unverified",
+      "sources": ["lesson"]
+    }
+  ]
+}

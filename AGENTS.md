@@ -23,6 +23,9 @@
 - For a task that adds sourced knowledge, follow the source workflow in
   `docs/working-guide.md`: preserve, convert, retrieve, draft, independently
   review, then update memory once. Reuse verified current sources and receipts.
+- For a requested briefing, follow `docs/briefing.md`: verify named sources,
+  assemble a minimal snapshot outside this public checkout, and render all
+  Now/Next/Blocked items with their citations. Recheck dated snapshots on use.
 - Before publishing, run `python3 scripts/validate.py` and
   `python3 -m unittest discover -s tests -v`, then inspect the complete staged diff.
 - Never echo suspected secrets in errors. Do not remove checks to make a failure

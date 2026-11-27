@@ -26,6 +26,7 @@ def registry(project, root):
         "context7": item("context7", "run-local.sh", kind="fixed-server"),
         "playwright": item("playwright", "run-local.sh"),
         "caveman": item("caveman", "run-local.sh"),
+        "hermes": item("hermes", "run-local.py", sys.executable, kind="manual-agent"),
         "mem0": item("mem0", ".venv/bin/python", kind="sdk",
                      env={"MEM0_TELEMETRY": "false", "MEM0_DIR": local("mem0", "state/config"),
                           "FASTEMBED_CACHE_PATH": local("mem0", "models"),
@@ -81,6 +82,8 @@ def main(argv=None):
         arguments = arguments[1:]
     if not arguments:
         parser.error("run requires explicit tool arguments; use --start for a stdio server")
+    if tool["kind"] == "manual-agent" and arguments not in (["--status"], ["--version"], ["--help"]):
+        parser.error("this manual-agent launcher accepts only --status, --version or --help")
     if tool["kind"] == "fixed-server" and arguments != ["--start"]:
         parser.error("this fixed stdio launcher requires exactly --start")
     if arguments == ["--start"]:

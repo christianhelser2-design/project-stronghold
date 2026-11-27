@@ -38,6 +38,11 @@ It reads current approved Markdown files each time; no embedding service or mode
 call is required. See the [toolbox review](docs/toolbox-review.md) for candidates
 worth evaluating when a specific gap appears.
 
+The [adoption record](docs/adoption.md) now covers all reviewed local frameworks,
+their tested limits and viable next workflows. Use `python3 scripts/toolbox.py
+status` for inert presence checks and [the agent workflow](docs/agent-workflow.md)
+for source, preparation, implementation and review roles.
+
 ## Run the checks
 
 Requires Git and Python 3.11 or newer. No third-party Python packages are needed.

@@ -19,7 +19,7 @@ class ValidationTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name) / "starter"
         shutil.copytree(SOURCE, self.root, ignore=shutil.ignore_patterns(
-            ".git", "__pycache__", ".swarm", ".claude-flow"))
+            ".git", "__pycache__", ".swarm", ".claude-flow", "hallmark"))
 
     def write(self, name, value):
         path = self.root / name
@@ -147,6 +147,10 @@ npm_config_cache = ".claude-flow/npm-cache"
         self.write(".swarm/notes.md", "Invented runtime state")
         git("add", "-f", ".swarm/notes.md")
         self.assert_rejected("private path")
+
+    def test_installed_skill_payload_cannot_be_published(self):
+        self.write(".agents/skills/hallmark/SKILL.md", "Invented cached third-party skill")
+        self.assert_rejected("third-party runtime")
 
     def test_secret_is_rejected_without_echoing_value(self):
         fake = "ghp_" + "A" * 36

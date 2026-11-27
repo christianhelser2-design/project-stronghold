@@ -26,6 +26,34 @@ public recall cannot search it. Do not copy private sources or their links here.
 These are session-maintenance instructions, not a scheduled background process
 or a promise that an unrelated chat automatically reads the files.
 
+## On-demand toolbox and semantic retrieval
+
+Use `python3 scripts/toolbox.py status` to locate installed entries and their
+receipts. This starts no process and is not a health check. The
+[adoption record](adoption.md) distinguishes package presence, tested workflows
+and remaining inference/provider limits. Server entries require an explicit
+`--start`; the launcher's Ruflo command uses the project pin and npm offline mode.
+
+Keyword recall reads current files directly. Before using the optional QMD public
+snapshot, check its source hashes; after changing an approved source, refresh
+the snapshot/index and changed embeddings:
+
+```bash
+python3 ../toolbox/qmd/sync-public-snapshot.py --check
+python3 ../toolbox/qmd/sync-public-snapshot.py
+python3 scripts/toolbox.py run qmd update
+python3 scripts/toolbox.py run qmd embed -c stronghold-public-approved --max-docs-per-batch 1 --max-batch-mb 1 --timeout 5 --no-gpu
+python3 scripts/toolbox.py run qmd query "vec: Which add-on helps when keyword recall misses relevant notes?" -c stronghold-public-approved --no-rerank --no-gpu --json -n 3
+```
+
+These paths use the default sibling toolbox; use its relocated path if configured.
+The strict source allowlist now has 13 named public Markdown files. Do not replace
+it with a repository/workspace glob. The source-hash check does not itself prove
+embedding freshness; inspect QMD status for pending embeddings. Model download,
+indexing and query latency are additional local costs. Vector retrieval is a
+useful default semantic path here; full query expansion was too slow in the pilot.
+Open the cited original passage before relying on a retrieved claim.
+
 ## One useful manual trial
 
 Open one prompt and its matching synthetic JSON file. In an approved assistant,

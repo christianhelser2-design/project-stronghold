@@ -17,6 +17,9 @@
   remaining blockers and the next action; keep private details outside this repo.
   At a verified task boundary, refresh the compact brain index with current facts,
   sources and the next action; replace stale summaries rather than copying chats.
+- Use `docs/agent-workflow.md` to select only the roles needed for a task.
+  Use `python3 scripts/toolbox.py status` for local tool presence; installed
+  packages and role files are not proof a runtime or classroom workflow works.
 - Before publishing, run `python3 scripts/validate.py` and
   `python3 -m unittest discover -s tests -v`, then inspect the complete staged diff.
 - Never echo suspected secrets in errors. Do not remove checks to make a failure

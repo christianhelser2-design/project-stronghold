@@ -14,6 +14,7 @@ python3 scripts/toolbox.py status
 python3 scripts/toolbox.py run qmd --version
 python3 scripts/toolbox.py run markitdown --version
 python3 scripts/toolbox.py run rtk --version
+python3 scripts/toolbox.py run hermes --status
 ```
 
 The local default root is the sibling `toolbox/` directory beside this checkout.
@@ -24,6 +25,11 @@ isolated Python interpreter; reference libraries remain source material.
 Registered server entries require the explicit `--start` action; the Ruflo CLI
 uses explicit `mcp start` arguments. Host execution permissions still apply;
 this launcher is not a file/network sandbox.
+
+The Hermes pilot is registered separately as a manual inspection entry. Its only
+accepted actions are exactly `--status`, `--version` and `--help`; the local
+wrapper checks its source pin and lock before the genuine version command.
+Chat, model setup, imports, gateways and scheduled jobs are outside this route.
 
 Each tool has an `ADOPTION.md` receipt in its local directory with pinned versions,
 source/license evidence, exact setup/start commands, fixtures and limits.
@@ -48,6 +54,16 @@ their checks; repository checkout alone does not install them.
 | MCP memory service | 13.0.0 SQLite/ONNX environment and a localized model cache. | Real local embedding initialization and storage lifecycle as recorded in its receipt; hash fallback disabled. |
 | Mem0 | `mem0ai` 2.2.1, FastEmbed 0.9.1 and local Qdrant. | Add/get/semantic-search/reopen/update/delete with `infer=False`, no LLM request. Automatic inference/extraction needs separate model setup. |
 | Graphiti | `graphiti-core` 0.32.1, embedded Relate 1.0.1 and reference MCP source. | Persistent graph-driver health/create/read/update/delete under native process permission. LLM-driven episode extraction and reference-MCP authentication are not established by that test. |
+| Hermes Agent | MIT [v0.23.4](https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.4), commit `8fc037444731`, isolated PM-managed Python 3.14.9 and core dependency lock. | Genuine CLI version, restricted wrapper, local MemoryStore lifecycle and SQLite FTS5/session search passed on an approved public fixture, removed afterward. No local model endpoint was found; model-backed assistant execution remains unconfigured. |
+
+Hermes adds a potential persistent assistant path, with overlap in memory and
+coordination. This scoped adoption keeps its state separate and uses the
+upstream-supported core installation without browser/computer-use extras.
+Its required Node/npm/pnpm, FFmpeg and ripgrep tools are pinned locally too.
+Profiles and the inspection wrapper are not filesystem sandboxes. The local
+receipt records exact installation and recovery evidence; a model-backed task
+requires a separately configured provider and verification before any broader
+assistant workflow is described as working.
 
 ## Useful paths forward
 

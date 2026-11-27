@@ -43,6 +43,19 @@ their tested limits and viable next workflows. Use `python3 scripts/toolbox.py
 status` for inert presence checks and [the agent workflow](docs/agent-workflow.md)
 for source, preparation, implementation and review roles.
 
+## Get a short briefing
+
+Use the [on-demand briefing](docs/briefing.md) for **Now / Next / Blocked / Sources**:
+
+```bash
+python3 scripts/briefing.py --input examples/briefing.synthetic.json --max-chars 2000
+```
+
+The example is wholly invented. For real work, an assistant checks the named
+authoritative records and assembles a small snapshot outside this public
+checkout. The formatter preserves citations, dates and uncertainty; it does not
+fetch accounts or update records. A snapshot is a dated handoff, not a live feed.
+
 ## Run the checks
 
 Requires Git and Python 3.11 or newer. No third-party Python packages are needed.

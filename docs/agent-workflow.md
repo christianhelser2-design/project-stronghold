@@ -14,6 +14,7 @@ access added.
 | Lesson or room preparation | Existing prompt plus authorized source; create a draft using `prompts/lesson-readiness.md` or `prompts/room-reset.md`. | Timing, material limits, choice, checkpoint, cleanup and re-entry are usable; uncertainty preserved. |
 | Implementer | One demonstrated code/document gap; produce a small change and relevant checks. | Diff, actual test output and rollback path exist. |
 | Reviewer / Reality Checker | Source, proposed result and test evidence; report unsupported claims and demonstrated defects. | Independent assistant review when available; a same-context self-review is labeled honestly. |
+| Content drafter | Approved brand, audience, purpose and cited facts; prepare a private post, newsletter or asset draft. | Claims match sources, voice fits the audience, and the owner reviews the draft before external use. |
 | Handoff / Technical Writer | Verified result; update the short index and existing project record once. | Current state, source, checks, blocker and next action are saved without copying the conversation. |
 
 The mapped Agency reference files are `project-management/project-management-project-shepherd.md`,
@@ -23,6 +24,12 @@ The mapped Agency reference files are `project-management/project-management-pro
 The rest of the library is available for a specific need; do not load every role.
 Platform subagents may do independent tasks in parallel. If unavailable, run the
 roles sequentially and do not describe them as independently verified workers.
+
+For an on-demand status view, the coordinator follows the
+[briefing contract](briefing.md): gather a few current source facts, retain
+uncertainty, format the snapshot, and have the reviewer compare it with the
+sources. Role names and the content-drafting path add no account access,
+scheduled worker or external publishing action.
 
 ## Executed synthetic example
 

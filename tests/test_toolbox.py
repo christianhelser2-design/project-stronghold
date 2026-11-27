@@ -82,6 +82,39 @@ class ToolboxTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout.strip(), "invented overridden root")
 
+    def test_hermes_presence_check_never_executes_manual_agent(self):
+        marker = self.root / "unexpected-hermes"
+        self.fake("hermes/run-local.py", f"from pathlib import Path\nPath({str(marker)!r}).touch()")
+        receipt = self.root / "hermes/ADOPTION.md"
+        receipt.write_text("Invented local adoption receipt")
+        result = self.invoke("status", "hermes")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("manual-agent", result.stdout)
+        self.assertIn("entry=present", result.stdout)
+        self.assertNotIn("Invented local adoption", result.stdout)
+        self.assertFalse(marker.exists())
+
+    def test_hermes_forwards_only_explicit_safe_manual_actions(self):
+        self.fake("hermes/run-local.py", "import json, sys\nprint(json.dumps(sys.argv[1:]))\nsys.exit(7)")
+        for action in ("--status", "--version", "--help"):
+            with self.subTest(action=action):
+                result = self.invoke("run", "hermes", action)
+                self.assertEqual(result.returncode, 7, result.stderr)
+                self.assertEqual(json.loads(result.stdout), [action])
+
+    def test_hermes_rejects_autonomous_provider_and_extra_arguments(self):
+        marker = self.root / "unexpected-hermes"
+        self.fake("hermes/run-local.py", f"from pathlib import Path\nPath({str(marker)!r}).touch()")
+        unsafe = ((), ("gateway",), ("cron",), ("import", "invented.json"),
+                  ("setup",), ("provider",), ("service",), ("--public-trial",),
+                  ("--start",), ("--status", "--gateway"),
+                  ("--version", "$(touch invented-marker)"))
+        for arguments in unsafe:
+            with self.subTest(arguments=arguments):
+                result = self.invoke("run", "hermes", *arguments)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertFalse(marker.exists())
+
     def test_status_is_bounded_and_does_not_read_receipt_body(self):
         receipt = self.root / "qmd/ADOPTION.md"
         receipt.parent.mkdir()

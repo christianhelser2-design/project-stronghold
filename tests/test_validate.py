@@ -38,6 +38,26 @@ class ValidationTests(unittest.TestCase):
     def test_complete_synthetic_starter_passes(self):
         self.assertEqual(validate(self.root), [])
 
+    def test_briefing_synthetic_contract_passes_in_extracted_cli(self):
+        result = subprocess.run([sys.executable, "scripts/validate.py"], cwd=self.root,
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_briefing_example_must_remain_synthetic(self):
+        self.change_json("examples/briefing.synthetic.json", "synthetic", False)
+        self.assert_rejected("briefing example must remain synthetic")
+
+    def test_briefing_example_requires_valid_source_references(self):
+        data = json.loads((self.root / "examples/briefing.synthetic.json").read_text())
+        data["blocked"][0]["sources"] = ["missing"]
+        self.write("examples/briefing.synthetic.json", json.dumps(data))
+        self.assert_rejected("invalid briefing snapshot contract")
+
+    def test_other_briefing_json_remains_unsupported(self):
+        text = (self.root / "examples/briefing.synthetic.json").read_text()
+        self.write("examples/briefing.other.json", text)
+        self.assert_rejected("unsupported JSON contract")
+
     def test_malformed_json_fails(self):
         self.write("examples/lesson.synthetic.json", "{")
         self.assert_rejected("invalid JSON")

@@ -336,3 +336,50 @@ adds no package, background schedule, source republication or school-record writ
 Existing validation and tests were run before publication; there is no new code
 behavior requiring an additional test suite. No production token-saving figure
 or classroom outcome is claimed.
+
+## On-demand briefing and Hermes adoption — 2026-11-26 America/Detroit
+
+Implemented `scripts/briefing.py` for one explicit, cited JSON snapshot. It renders
+Now / Next / Blocked / Sources with observed/proposed/unverified labels and
+inspection dates. The 2,000-character default includes formatting and citations;
+an over-budget result fails without partial stdout, dropped blockers or clipped
+source references. Input is bounded to 64 KiB during reading. Duplicate keys,
+invalid references, unsafe locations and future/offset-less dates fail; inspection
+age over seven days is flagged without claiming current operational progress.
+
+The formatter has no account lookup, source fetching, model call or state write.
+`docs/briefing.md` documents source assembly and a separate revision/hash receipt.
+The wholly invented `examples/briefing.synthetic.json` has a narrowly registered
+synthetic-only validator contract; unknown JSON contracts remain rejected. The
+explicit recall allowlist adds only the new guide, bringing it to 14 named public
+Markdown paths. Existing classroom profiles remain disabled. The coordinator and
+content-drafter paths use approved sources and private drafts, with no publishing
+or scheduling action.
+
+The first real private briefing used the existing reviewed Monet handoff and
+preserved NGA chapter. Its complete output is 942 characters, with clickable
+source citations and an explicit proposed display/time check. The source PDF,
+draft and review still match their recorded hashes. Independent comparison passed
+the facts and status labels; classroom use, readability, fit and current stopping
+points remain unverified. The actual snapshot, source block hashes, output and
+saved briefing view stay outside this public repository.
+
+Installed the MIT Hermes Agent release v0.23.4 at commit `8fc037444731` in its
+separate local toolbox. Its PM-managed Python 3.14.9 environment, 66 Python
+distributions, required toolchain and exact lock/artifact hashes are recorded in
+the local adoption receipt. The core installation excludes browser/computer-use
+extras and occupies about 1.8 GiB. Genuine version/help, a restricted inspection
+wrapper, MemoryStore add/reload/patch/remove and SQLite FTS5/session-search
+lifecycle passed on a small approved public fixture; deletion was verified.
+No local model endpoint was found, so model-backed assistant execution remains
+unconfigured. The toolbox entry permits only `--status`, `--version` and `--help`;
+profiles and this argument guard are not filesystem sandboxes.
+
+All 102 existing/new unit tests passed, including 25 briefing tests, 44 validator
+tests and 18 toolbox tests. Independent review found a clickable-link authority
+delimiter defect; a regression now rejects malformed authority/IDNA forms while
+retaining valid IPv6/ports. Public-data validation and complete staged review are
+required before publication. The next useful step is an on-demand briefing from
+the named records; real Hermes inference needs a configured provider and a
+separate verified task. No measured token/billing savings or unattended operation
+is claimed.

@@ -18,6 +18,8 @@ REQUIRED = {
     "tests/test_validate.py", ".github/workflows/validate.yml",
     ".github/pull_request_template.md",
     "docs/brain-index.md", "docs/toolbox-review.md", "scripts/recall.py", "tests/test_recall.py",
+    "docs/adoption.md", "docs/agent-workflow.md", "scripts/toolbox.py", "tests/test_toolbox.py",
+    "examples/lesson-readiness.draft.md",
 }
 PRIVATE_PARTS = {"private", "data", "exports", "uploads", "local", ".venv", "node_modules",
                  ".swarm", ".claude-flow"}
@@ -176,6 +178,8 @@ def check_contract(name, data, names):
 
 def path_problem(name):
     path = PurePosixPath(name)
+    if name.startswith(".agents/skills/hallmark/"):
+        return "installed third-party runtime must stay local"
     parts = {part.casefold() for part in path.parts}
     filename = path.name.casefold()
     if (PRIVATE_PARTS.intersection(parts) or filename.startswith(".env") or

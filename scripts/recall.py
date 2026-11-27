@@ -8,7 +8,7 @@ SOURCES = (
     "README.md", "AGENTS.md", "docs/brain-index.md", "docs/toolbox-review.md",
     "docs/project-record.md", "docs/working-guide.md", "docs/ruflo.md",
     "docs/privacy.md", "docs/instagram-notes.md", "prompts/lesson-readiness.md",
-    "prompts/room-reset.md",
+    "prompts/room-reset.md", "docs/adoption.md", "docs/agent-workflow.md",
 )
 WORD = re.compile(r"[^\W_]+", re.UNICODE)
 INSTALL_WORDS = {"installation", "installations", "installed", "installing"}

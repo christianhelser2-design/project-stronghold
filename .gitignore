@@ -22,3 +22,5 @@ dist/
 # Ruflo memory, logs and coordination state stay local.
 .swarm/
 .claude-flow/
+# Installed third-party skill payloads are local, reproducible dependencies.
+.agents/skills/hallmark/

@@ -5,16 +5,18 @@ Check the actual branch and live pull-request state before acting on a snapshot.
 
 ## Current facts
 
-- Stronghold is a Python/Markdown lesson-preparation starter, not a running
-  classroom application. Both classroom profiles remain disabled.
-- Ruflo 3.80.8 is configured and locally smoke-tested on the development branch.
-  [PR 4](https://github.com/christianhelser2-design/project-stronghold/pull/4)
-  was open and unmerged when checked. Main does not yet contain that setup.
-- Ruflo 3.80.9 is an upgrade candidate, not the installed project pin. Hallmark is
-  downloaded separately; it is not installed into this starter.
-- Current implementation adds bounded recall and a 12-tool Ruflo client allowlist.
-  Local validation and all 54 tests passed. Its reviewed change depends on PR 4;
-  neither is claimed merged. Next: review the dependent change and hosted checks.
+- Stronghold is a Python/Markdown preparation starter. Both classroom profiles
+  remain disabled; the assistant workflow uses explicit tasks.
+- [PR 4](https://github.com/christianhelser2-design/project-stronghold/pull/4)
+  and [PR 5](https://github.com/christianhelser2-design/project-stronghold/pull/5)
+  are merged into main: bounded recall and the 12-tool Ruflo client are adopted.
+- Ruflo 3.80.9 is pinned, and Hallmark is installed as a local Codex
+  skill. All reviewed frameworks and the Agency role library are available in
+  the local toolbox; package presence is separate from tested capabilities.
+- [Adoption evidence](adoption.md) records tested capabilities. Memory engines
+  use separate public-test stores; private operations stay outside these caches.
+- Next: use the conversion/retrieval/preparation/review path on one approved task,
+  then update this index and the existing project record with actual evidence.
 
 ## Retrieve only what this task needs
 
@@ -32,9 +34,9 @@ does not read private workspaces, transcripts, runtime memory or cached packages
 | What works, failed or was verified? | [Dated project record](project-record.md) |
 | How do we resume and maintain memory? | [Working guide](working-guide.md) |
 | Which tools should we add? | [Toolbox review](toolbox-review.md) |
+| What is installed and how do agents use it? | [Adoption](adoption.md), [agent workflow](agent-workflow.md) |
 | How is Ruflo configured or removed? | [Ruflo setup](ruflo.md) |
 
-At a verified task boundary, replace stale current facts here and append the
-evidence once to the project record. Keep this index under 2,500 characters.
-Operational context remains in its existing approved private system; never copy
-its records or private source links into GitHub to make recall easier.
+At a verified task boundary, refresh current facts here and append evidence once
+to the project record. Keep this index under 2,500 characters. Never copy private
+records or their links into GitHub to make recall easier.

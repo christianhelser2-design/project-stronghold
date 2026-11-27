@@ -239,3 +239,61 @@ and identified the broad-query limitation above. No private source link or
 operational record was added to this public change. The current development
 branch is based on open PR 4. Next: review the dependent pull request and its
 hosted checks, then evaluate recall on the next actual development question.
+
+## Full local toolbox and agent adoption — 2026-11-26 America/Detroit
+
+The expanded adoption request explicitly included all reviewed memory frameworks.
+PRs 4 and 5 were checked at their expected heads, with passing hosted validation,
+then merged into main. The adoption change builds on that merged foundation.
+The tested project runtime pin is now Ruflo 3.80.9; its actual MCP initialization,
+394-name discovery, 12 selected-name check, `system_info` and clean shutdown
+passed. Classroom profile templates remain disabled; explicit assistant roles
+are documented separately from an unattended runtime.
+
+All 13 local toolbox entries and their receipts are present. QMD, MarkItDown,
+RTK OSS, Context7, Playwright, Caveman, both MCP memory servers, Mem0 and Graphiti
+were installed in isolated local environments. Hallmark is installed as a local
+Codex skill, and the Agency Agents source library is available on demand.
+The [adoption record](adoption.md) gives versions, verified scopes, limitations
+and the next useful workflows. Models, dependencies and synthetic stores remain
+outside published source. No private records, paid model API or background
+capture/sync was introduced.
+
+Concrete results include source-preserving document conversion; local lexical
+and semantic retrieval; real persistent memory/graph lifecycle checks; synthetic
+browser interaction and Hallmark static/render audits; and explicit compression
+with failure/recovery checks. These do not establish every optional LLM feature,
+hosted service, reference MCP runtime or production outcome. Full QMD expansion
+exceeded two minutes, while vector-only pilot queries took about 2.5–3.3 seconds.
+The public QMD snapshot is restricted to the 13 approved Markdown paths and
+requires an explicit source/index refresh after changes.
+
+The launcher is inert for status/list, passes literal argument lists without a
+shell, requires deliberate stdio startup, and never implicitly downloads a
+package. It derives the Ruflo version from the project configuration. A reviewer
+found a Context7 startup-marker mismatch; the guard was tightened and two
+regressions passed. Fifteen launcher tests cover dispatch and no-launch cases.
+Hallmark's installed payload is ignored and rejected if staged, and fixture
+copying excludes that dependency. All 70 project tests passed; the public-file
+validator and staged whitespace/diff checks passed before publication.
+
+Several native workflows initially failed or hung under restricted execution;
+the same bounded tests passed through the host's authorized native-process path.
+The receipt distinguishes that permission issue from an upstream defect.
+Doobidoo's hardcoded home-cache path required a local adapter; RTK's generic test
+filter dropped assertion detail, so raw failure recovery/native quiet mode is
+preferred. No global sandbox, browser policy, proxy or hook was disabled/enabled
+to hide these results.
+
+A preparation-role assistant produced the saved synthetic lesson draft. A second
+assistant checked its 40-minute sum, source steps, choices, cleanup and preserved
+unknowns against the original invented input. A teacher-drawn step card emerged
+as a reusable demonstration/access/checkpoint aid. This is a digital example,
+not classroom use or teacher approval.
+
+Next: apply the conversion, source-hash/citation, retrieval, preparation and
+independent-review path to one authorized task, then save its actual result in
+the existing knowledge record. Compare memory engines on the same synthetic
+questions before choosing a primary derived store; do not synchronize competing
+copies automatically. Hosted publication evidence is separate from these local
+checks. No production token or billing reduction is claimed.

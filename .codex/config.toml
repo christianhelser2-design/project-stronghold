@@ -2,7 +2,7 @@
 # https://developers.openai.com/codex/mcp
 [mcp_servers.ruflo]
 command = "npx"
-args = ["--yes", "ruflo@3.80.8", "mcp", "start", "--transport", "stdio"]
+args = ["--yes", "ruflo@3.80.9", "mcp", "start", "--transport", "stdio"]
 startup_timeout_sec = 120
 enabled_tools = [
   "system_info", "memory_store", "memory_retrieve", "memory_search",

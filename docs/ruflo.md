@@ -1,7 +1,7 @@
 # Ruflo development tooling
 
 The project-level Codex MCP configuration in `.codex/config.toml` runs
-`ruflo@3.80.8` over stdio. It adds development tools without replacing `AGENTS.md`
+`ruflo@3.80.9` over stdio. It adds development tools without replacing `AGENTS.md`
 or initializing Ruflo's larger scaffold. The existing lesson-readiness and
 room-reset profiles remain disabled, manual and draft-only.
 
@@ -19,7 +19,7 @@ support. Python validation still needs no third-party Python packages.
 From the repository root, download the pinned CLI into npm's cache first:
 
 ```bash
-ONNXRUNTIME_NODE_INSTALL=skip npm_config_cache=.claude-flow/npm-cache npx --yes ruflo@3.80.8 --version
+ONNXRUNTIME_NODE_INSTALL=skip npm_config_cache=.claude-flow/npm-cache npx --yes ruflo@3.80.9 --version
 ```
 
 Ruflo installation can take several minutes and includes native dependencies.

@@ -15,8 +15,9 @@ Check the actual branch and live pull-request state before acting on a snapshot.
   the local toolbox; package presence is separate from tested capabilities.
 - [Adoption evidence](adoption.md) records tested capabilities. Memory engines
   use separate public-test stores; private operations stay outside these caches.
-- Next: use the conversion/retrieval/preparation/review path on one approved task,
-  then update this index and the existing project record with actual evidence.
+- The first real source workflow is complete: official NGA Monet PDF preserved,
+  converted, retrieved and used for an independently reviewed looking draft.
+  Use the default source workflow in the working guide for the next relevant task.
 
 ## Retrieve only what this task needs
 

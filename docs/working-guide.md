@@ -54,6 +54,39 @@ indexing and query latency are additional local costs. Vector retrieval is a
 useful default semantic path here; full query expansion was too slow in the pilot.
 Open the cited original passage before relying on a retrieved claim.
 
+## Default source workflow
+
+Use this path when a task introduces an external document or new sourced claim;
+reuse an existing current source/receipt when sufficient. It is a task workflow,
+not scheduled capture or permission to import private records.
+
+1. **Preserve:** identify the original publisher and appropriate use boundary.
+   Save unchanged bytes, final URL, retrieval date, MIME type, size, SHA-256 and
+   physical-page count. Keep real operational inputs outside this public repo.
+2. **Convert once:** retain the actual converter output. Inspect the original
+   pages and make a physical-page/column companion when reading order is wrong.
+   Preserve printed-page labels separately; conversion cannot license artwork.
+3. **Retrieve:** use a source-only collection, distinct from the draft and
+   knowledge index. Record its input hash. Retrieve bounded passages and open the
+   decisive original location; do not treat a vector score as factual confidence.
+4. **Draft:** separate supported facts, teaching/implementation proposals and
+   unresolved conditions. Reuse the existing project context; preserve uncertainty
+   about actual progress, stock, period fit and standards when evidence is absent.
+5. **Review:** a different assistant compares the exact draft hash and citations
+   with the original evidence. Save Pass/Fail/Unverified by scope, correct actual
+   defects, and recheck changed claims. Digital review is not classroom use.
+6. **Update memory:** save the result in the existing case, with source/hash,
+   review outcome and next action. Replace stale index facts once, refresh any
+   changed retrieval snapshot, and retain the source rather than copying chats.
+
+The first real public-source run preserved the official
+[NGA Monet chapter](https://www.nga.gov/sites/default/files/migrate_images/content/dam/ngaweb/education/learning-resources/an-eye-for-art/aneyeforart-claudemonet.pdf),
+converted it locally, corrected two-column reading order through a checked region
+companion, retrieved cited passages in a separate index, and independently
+reviewed an original short looking routine. Full source and artwork stayed local;
+the teaching resource and case links belong in their existing private workspace.
+The [project record](project-record.md) holds the public verification receipt.
+
 ## One useful manual trial
 
 Open one prompt and its matching synthetic JSON file. In an approved assistant,

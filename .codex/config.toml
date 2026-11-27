@@ -1,0 +1,11 @@
+# Project development tooling; loaded by Codex only after this project is trusted.
+# https://developers.openai.com/codex/mcp
+[mcp_servers.ruflo]
+command = "npx"
+args = ["--yes", "ruflo@3.80.8", "mcp", "start", "--transport", "stdio"]
+startup_timeout_sec = 120
+
+# ONNX bundles CPU binaries; avoid downloading extra CUDA/TensorRT libraries.
+[mcp_servers.ruflo.env]
+ONNXRUNTIME_NODE_INSTALL = "skip"
+npm_config_cache = ".claude-flow/npm-cache"

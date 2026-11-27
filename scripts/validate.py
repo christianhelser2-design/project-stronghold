@@ -6,6 +6,7 @@ import posixpath
 import re
 import subprocess
 import sys
+import tomllib
 
 REQUIRED = {
     "README.md", "AGENTS.md", ".gitignore", "docs/privacy.md",
@@ -17,7 +18,8 @@ REQUIRED = {
     "tests/test_validate.py", ".github/workflows/validate.yml",
     ".github/pull_request_template.md",
 }
-PRIVATE_PARTS = {"private", "data", "exports", "uploads", "local", ".venv", "node_modules"}
+PRIVATE_PARTS = {"private", "data", "exports", "uploads", "local", ".venv", "node_modules",
+                 ".swarm", ".claude-flow"}
 ALLOWED_SUFFIXES = {".md", ".json", ".py", ".yml", ".yaml"}
 AGENT_INPUTS = {
     "lesson-readiness": "examples/lesson.synthetic.json",
@@ -175,7 +177,7 @@ def path_problem(name):
     if (PRIVATE_PARTS.intersection(parts) or filename.startswith(".env") or
             filename.endswith(".local.json") or re.search(r"credentials|secrets", name, re.I)):
         return "private path must not be published"
-    if path.suffix not in ALLOWED_SUFFIXES and name != ".gitignore":
+    if path.suffix not in ALLOWED_SUFFIXES and name not in {".gitignore", ".codex/config.toml"}:
         return "unsupported file type"
     return None
 
@@ -211,6 +213,27 @@ def content_problems(name, content, names, root):
     if any(domain.lower() not in {"example.com", "example.org", "example.net"} for domain in EMAIL.findall(content)):
         problems.append("contact address outside reserved example domains")
     suffix = PurePosixPath(name).suffix
+    if name == ".codex/config.toml":
+        try:
+            config = tomllib.loads(content)
+        except tomllib.TOMLDecodeError:
+            return problems + ["invalid TOML"]
+        servers = config.get("mcp_servers", {})
+        server = servers.get("ruflo", {}) if isinstance(servers, dict) else {}
+        if (set(config) != {"mcp_servers"} or not isinstance(servers, dict)
+                or set(servers) != {"ruflo"} or not isinstance(server, dict)
+                or set(server) != {"command", "args", "startup_timeout_sec", "env"}):
+            return problems + ["only the reviewed Ruflo MCP configuration is allowed"]
+        args = server["args"]
+        if (server["command"] != "npx" or not isinstance(args, list) or len(args) != 6
+                or args[0] != "--yes" or not isinstance(args[1], str)
+                or not re.fullmatch(r"ruflo@\d+\.\d+\.\d+", args[1])
+                or args[2:] != ["mcp", "start", "--transport", "stdio"]
+                or type(server["startup_timeout_sec"]) is not int
+                or server["startup_timeout_sec"] != 120
+                or server["env"] != {"ONNXRUNTIME_NODE_INSTALL": "skip",
+                                     "npm_config_cache": ".claude-flow/npm-cache"}):
+            problems.append("Ruflo requires the reviewed pinned stdio command and startup timeout")
     if suffix == ".json":
         try:
             data = json.loads(content, object_pairs_hook=unique_object)

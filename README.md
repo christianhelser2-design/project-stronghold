@@ -19,6 +19,11 @@ The JSON agent profiles are **disabled configuration templates**, not installed
 or running agents. No model API, account connection, scheduling or paid service is
 required for this starter. This repository does not run a classroom application.
 
+Optional development tooling: [Ruflo for Codex](docs/ruflo.md) is configured at
+project level with a pinned version. It supports repository development; the
+classroom profiles above remain disabled. [Instagram research notes](docs/instagram-notes.md)
+separate useful public tutorials from unverified promotional claims.
+
 ## Run the checks
 
 Requires Git and Python 3.11 or newer. No third-party Python packages are needed.
@@ -56,7 +61,7 @@ See the [working guide](docs/working-guide.md) for changes and recovery, and the
 ## Build on it carefully
 
 The first useful step is a manual prompt trial, followed by a small revision.
-Real agent execution needs a separately chosen runtime, access controls, cost
+Classroom agent execution needs a separately chosen runtime, access controls, cost
 limits and tests. School integrations need approved data handling and verified
 permissions. No grades, family messages, workbook synchronization, deployment or
 scheduled tasks are implemented here.

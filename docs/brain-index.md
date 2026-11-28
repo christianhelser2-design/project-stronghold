@@ -1,6 +1,6 @@
 # Stronghold development memory
 
-Verified 2026-11-26. This is the short public entry point, not school records.
+Verified 2026-11-27. This is the short public entry point, not school records.
 Check the actual branch and live pull-request state before acting on a snapshot.
 
 ## Current facts
@@ -11,9 +11,10 @@ Check the actual branch and live pull-request state before acting on a snapshot.
   Now / Next / Blocked / Sources, with status, dates and citations. It performs
   no account lookup or source write and fails rather than truncating evidence.
 - Ruflo 3.80.9 is pinned, and Hallmark is installed as a local Codex
-  skill. The local toolbox has 14 registered entries, including Hermes v0.23.4
+  skill. The local toolbox has 15 registered entries, including Hermes v0.23.4
   with a restricted inspection launcher. Hermes model inference is unconfigured;
   package presence is separate from tested capabilities.
+- [Anthropic references](adoption.md): seven pinned repositories, read on demand.
 - [Adoption evidence](adoption.md) records tested capabilities. Memory engines
   use separate public-test stores; private operations stay outside these caches.
 - The first real source workflow is complete: official NGA Monet PDF preserved,

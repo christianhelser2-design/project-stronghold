@@ -127,12 +127,14 @@ class ToolboxTests(unittest.TestCase):
         self.assertIn("sdk", result.stdout.lower())
 
     def test_reference_material_cannot_be_executed(self):
-        path = self.root / "agency-agents/README.md"
-        path.parent.mkdir()
-        path.write_text("Wholly invented reference material")
-        result = self.invoke("run", "agency-agents", "--help")
-        self.assertEqual(result.returncode, 126)
-        self.assertIn("reference", result.stderr.lower())
+        for name in ("agency-agents", "anthropic-references"):
+            with self.subTest(name=name):
+                path = self.root / name / "README.md"
+                path.parent.mkdir()
+                path.write_text("Wholly invented reference material")
+                result = self.invoke("run", name, "--help")
+                self.assertEqual(result.returncode, 126)
+                self.assertIn("reference", result.stderr.lower())
 
     def test_run_without_arguments_never_implicitly_starts_server(self):
         result = self.invoke("run", "mcp-memory")

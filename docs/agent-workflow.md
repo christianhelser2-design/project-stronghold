@@ -31,6 +31,26 @@ uncertainty, format the snapshot, and have the reviewer compare it with the
 sources. Role names and the content-drafting path add no account access,
 scheduled worker or external publishing action.
 
+## Selective reference and memory handoff
+
+The [Anthropic reference collection](adoption.md#anthropic-reference-collection--november-27-2026)
+adds examples for existing roles. The source researcher can consult knowledge
+synthesis; the document preparer can inspect the PDF skill; the reviewer can use
+the skill-creator evaluation pattern. Open only the needed file and preserve its
+license and runtime limits. Loading every role or plugin is not a task strategy.
+
+Parallel workers return cited evidence and proposed edits. One coordinator writes
+the canonical memory record, using the destination's current revision/hash when
+available. On conflict, reread and reconcile the affected passage; never replay a
+whole-page replacement. The Quickstarts wiki reports lost shared-page content
+under concurrent writers, so its writer design is not adopted here.
+
+Before promoting a new skill, compare it with the existing prompt on the same
+invented task and constraints. Have the reviewer check supported facts, citations,
+unknowns, failure handling, output size and time. Record actual model tokens only
+when the host supplies them. This is the next evaluation method, not a claim that
+all upstream skills or model-backed workflows have passed it.
+
 ## Executed synthetic example
 
 [The saved lesson-readiness draft](../examples/lesson-readiness.draft.md) uses the

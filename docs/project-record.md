@@ -383,3 +383,37 @@ required before publication. The next useful step is an on-demand briefing from
 the named records; real Hermes inference needs a configured provider and a
 separate verified task. No measured token/billing savings or unattended operation
 is claimed.
+
+## Selective Anthropic references — 2026-11-27 America/Detroit
+
+Reviewed the public @rickcodelab reel through caption and provider transcript,
+then verified all seven named repositories against the Anthropic GitHub
+organization. Canonical URLs and exact pins are in the adoption record. The
+caption supplied no repository URLs, transcript type was unspecified and provider
+timings slightly exceeded duration, so video timing is approximate evidence.
+
+Downloaded all seven source checkouts into one local `anthropic-references`
+collection, outside this public repository. Seven detached Git pins and 113
+selected-file/license hashes passed verification (13 selected files). The
+collection occupies about 87 MiB and has source, license and recovery receipts.
+It is the fifteenth registered toolbox entry; status finds it and an attempted
+run returns 126 without executing upstream code. No plugin, notebook, hook,
+transcript miner, managed agent, model call, account or schedule was activated.
+
+Added selective paths to the existing researcher, document-preparation and
+review roles. The memory handoff now explicitly uses one canonical writer with
+revision-aware reconciliation, avoiding the Quickstarts wiki's documented
+concurrent-write loss. A matched existing-prompt/selected-skill trial is the next
+evaluation method; its effectiveness and token costs have not been measured.
+Playground's unsupported status, Launch Your Agent's unmaintained status, plugin
+license/runtime boundaries and the tutorial's absent root license are retained.
+No unlicensed tutorial content was copied into this repository.
+
+Validation passed and all 102 unit tests passed. The existing reference-execution
+test now checks both reference collections. An initial context-budget failure was
+corrected by shortening the brain index to 2,460 characters; validation and the
+full suite then passed. The 14-document recall allowlist remains unchanged;
+upstream repositories and raw source evidence are not bulk-indexed. Independent
+review, public-source snapshot refresh and live PR checks are recorded in the
+publication receipt after this source boundary. Next: select one relevant skill,
+run the matched invented-task trial and retain facts, citations and unknowns.

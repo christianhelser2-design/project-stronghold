@@ -38,6 +38,7 @@ def registry(project, root):
                                    local("mcp-memory-service", ".venv/bin/python"), "fixed-server"),
         "hallmark": item("hallmark", ".agents/skills/hallmark/scripts/sloplint.mjs", "node", base=project),
         "agency-agents": item("agency-agents", "README.md", kind="reference"),
+        "anthropic-references": item("anthropic-references", "README.md", kind="reference"),
         "ruflo": item("ruflo", ".codex/config.toml", kind="configuration", base=project,
                       receipt=project / "docs/ruflo.md",
                       env={"ONNXRUNTIME_NODE_INSTALL": "skip",
